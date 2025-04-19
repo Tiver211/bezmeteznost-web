@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Example</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="/js/index.js" defer></script>
+</head>
+<body>
+    <h1>WebSocket Test</h1>
+
+    <!-- Account icon and menu -->
+    <div class="account-container">
+        <div class="account-icon" onclick="toggleMenu()">👤</div>
+        <div id="accountMenu" class="account-menu">
+            <ul>
+                <li><a href="/settings">Настройки</a></li>
+                <li><a href="/logout">Выход</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- WebSocket Message Area -->
+    <div id="messages"></div>
+
+    <!-- WebSocket Input -->
+    <input type="text" id="messageInput" placeholder="Enter message">
+    <button onclick="sendMessage()">Send</button>
+
+</body>
+</html>

@@ -1,23 +1,21 @@
 import os
-from uuid import uuid4
+from api.routes import blueprint
+from flask import Flask, jsonify
+from extensions import *
 
-import bcrypt
-import uvicorn
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy.orm import Session
-from starlette.responses import JSONResponse
+app = Flask(__name__)
 
-app = FastAPI(
-    openapi_url="/api/openapi.json",
-    docs_url="/api/docs",
-)
+app.config["JWT_SECRET_KEY"] = os.getenv('RANDOM_SECRET')
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("POSTGRES_CONN")
 
-@app.get("/api/ping")
+jwt.init_app(app)
+db.init_app(app)
+
+app.register_blueprint(blueprint)
+
+@app.route('/api/ping')
 def ping():
-    return JSONResponse(status_code=200, content="PROOOOOOOOOOD")
+    return jsonify({"status": "ok"}), 200
 
 if __name__ == "__main__":
-    server_address = os.getenv("SERVER_ADDRESS", "0.0.0.0:443")
-    host, port = server_address.split(":")
-    uvicorn.run(app, host=host, port=int(port))
+    app.run(debug=True, host="0.0.0.0", port=80)

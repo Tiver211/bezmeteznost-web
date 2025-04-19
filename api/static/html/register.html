@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Регистрация</title>
+  <link rel="stylesheet" href="/css/login.css">
+  <style>
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+    .match-message {
+      color: green;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Регистрация</h2>
+    <form action="/api/login" method="post" onsubmit="return validatePasswords()">
+      <label for="username">Логин</label>
+      <input type="text" id="username" name="username" placeholder="Введите логин" required>
+
+      <label for="password">Пароль</label>
+      <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+
+      <label for="password_again">Повторите пароль</label>
+      <input type="password" id="password_again" name="password_again" placeholder="Введите пароль" required>
+      <div id="passwordError" class="error-message">Пароли не совпадают</div>
+      <div id="passwordMatch" class="match-message">Пароли совпадают</div>
+
+      <button type="submit">Зарегистрироваться</button>
+    </form>
+    <p>Есть аккаунт? <a href="/login">Войти</a></p>
+  </div>
+
+  <script>
+    function validatePasswords() {
+      const password = document.getElementById('password').value;
+      const passwordAgain = document.getElementById('password_again').value;
+      const errorElement = document.getElementById('passwordError');
+      const matchElement = document.getElementById('passwordMatch');
+
+      if (password !== passwordAgain) {
+        errorElement.style.display = 'block';
+        matchElement.style.display = 'none';
+        return false;
+      } else {
+        errorElement.style.display = 'none';
+        matchElement.style.display = password.length > 0 ? 'block' : 'none';
+        return true;
+      }
+    }
+
+    function checkPasswordMatch() {
+      const password = document.getElementById('password').value;
+      const passwordAgain = document.getElementById('password_again').value;
+      const errorElement = document.getElementById('passwordError');
+      const matchElement = document.getElementById('passwordMatch');
+
+      if (password.length === 0 && passwordAgain.length === 0) {
+        errorElement.style.display = 'none';
+        matchElement.style.display = 'none';
+        return;
+      }
+
+      if (password !== passwordAgain) {
+        errorElement.style.display = 'block';
+        matchElement.style.display = 'none';
+      } else {
+        errorElement.style.display = 'none';
+        matchElement.style.display = 'block';
+      }
+    }
+
+    // Добавляем проверку при изменении любого из полей пароля
+    document.getElementById('password').addEventListener('input', checkPasswordMatch);
+    document.getElementById('password_again').addEventListener('input', checkPasswordMatch);
+  </script>
+</body>
+</html>
