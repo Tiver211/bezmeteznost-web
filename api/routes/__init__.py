@@ -1,5 +1,7 @@
 from flask import Blueprint
-from api.routes.auth import blueprint as auth_blueprint
 
-blueprint = Blueprint("main", __name__, url_prefix="/api")
-blueprint.register_blueprint(auth_blueprint)
+from api.routes.api import blueprint as api
+
+blueprint = Blueprint("main", __name__)
+
+blueprint.register_blueprint(api)
