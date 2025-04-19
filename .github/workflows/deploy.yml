@@ -49,7 +49,7 @@ jobs:
 
       - name: Deploy to VPS
         run: |
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST <<EOF
+          ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER@$SSH_HOST }} <<EOF
             docker login your-registry.com -u ${{ secrets.REGISTRY_USER }} -p ${{ secrets.REGISTRY_PASSWORD }}
             mkdir -p $PROJECT_DIR
           EOF
