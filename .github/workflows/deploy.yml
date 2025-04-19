@@ -5,7 +5,7 @@ on:
     branches: [main]  # можно указать другие ветки
 
 env:
-  IMAGE_NAME_BACK: tiver211/bezmeteznost_minecraft_web
+  IMAGE_NAME: tiver211/bezmeteznost_minecraft_web
   SSH_USER: tiver211
   SSH_HOST: bezmeteznost.online
   PROJECT_DIR: /home/tiver211/web
