@@ -5,10 +5,10 @@ on:
     branches: [main]  # можно указать другие ветки
 
 env:
-  IMAGE_NAME_BACK: ${{ env.IMAGE_NAME }}
-  SSH_USER: ${{ env.SSH_USER }}
-  SSH_HOST: ${{ env.SSH_HOST }}
-  PROJECT_DIR: ${{ env.PROJECT_DIR }}
+  IMAGE_NAME_BACK: $IMAGE_NAME
+  SSH_USER: $SSH_USER
+  SSH_HOST: $SSH_HOST
+  PROJECT_DIR: $PROJECT_DIR
 
 jobs:
   build-and-push:
@@ -33,7 +33,7 @@ jobs:
           context: .
           file: ./api/Dockerfile
           push: true
-          tags: ${{ env.IMAGE_NAME_BACK }}:${{ github.sha }}
+          tags: $IMAGE_NAME:${{ github.sha }}
 
   deploy:
     runs-on: ubuntu-latest
