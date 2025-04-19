@@ -53,9 +53,9 @@ jobs:
             docker login docker.io -u ${{ secrets.REGISTRY_USER }} -p ${{ secrets.REGISTRY_PASSWORD }}
             mkdir -p ${{ env.PROJECT_DIR }}
           EOF
-
-          scp ../docker-compose.yml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_DIR}}/docker-compose.yml
-
+          ls 
+          scp ../docker-compose.yml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_DIR }}/docker-compose.yml
+        
           ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} <<EOF
             cd ${{ env.PROJECT_DIR }}
             echo "IMAGE_NAME=${{ env.IMAGE_NAME }}:${{ github.sha }}" > .env
