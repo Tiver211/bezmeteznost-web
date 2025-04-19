@@ -54,7 +54,7 @@ jobs:
             mkdir -p ${{ env.PROJECT_DIR }}
           EOF
           ls 
-          scp ../docker-compose.yml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_DIR }}/docker-compose.yml
+          scp docker-compose.yaml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_DIR }}/docker-compose.yml
         
           ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} <<EOF
             cd ${{ env.PROJECT_DIR }}
