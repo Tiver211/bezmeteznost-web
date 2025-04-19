@@ -42,19 +42,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Create .ssh directory
-        run: mkdir -p ~/.ssh
-
-      - name: Decode SSH Key
-        run: echo "${{ secrets.SSH_PRIVATE_KEY_BASE64 }}" | base64 --decode > ~/.ssh/id_rsa
-
-      - name: Set correct permissions for SSH key
-        run: chmod 600 ~/.ssh/id_rsa
-
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          ssh-private-key: ~/.ssh/id_rsa
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Deploy to VPS
         run: |
