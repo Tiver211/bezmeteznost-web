@@ -42,6 +42,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Create .ssh directory
+        run: mkdir -p ~/.ssh
+
       - name: Decode SSH Key
         run: echo "${{ secrets.SSH_PRIVATE_KEY_BASE64 }}" | base64 --decode > ~/.ssh/id_rsa
 
