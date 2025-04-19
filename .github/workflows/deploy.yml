@@ -33,7 +33,7 @@ jobs:
           context: .
           file: ./api/Dockerfile
           push: true
-          tags: $IMAGE_NAME:${{ github.sha }}
+          tags: ${{ env.IMAGE_NAME }}:${{ github.sha }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -54,10 +54,10 @@ jobs:
             mkdir -p $PROJECT_DIR
           EOF
 
-          scp docker-compose.yml $SSH_USER@$SSH_HOST:$PROJECT_DIR/docker-compose.yml
+          scp docker-compose.yml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_DIR}}/docker-compose.yml
 
-          ssh $SSH_USER@$SSH_HOST <<EOF
-            cd $PROJECT_DIR
+          ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} <<EOF
+            cd ${{ env.PROJECT_DIR }}
             echo "IMAGE_NAME=${{ env.IMAGE_NAME }}:${{ github.sha }}" > .env
             echo "POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }}" >> .env
             echo "POSTGRES_USERNAME=${{ secrets.POSTGRES_USERNAME }}" >> .env
