@@ -5,10 +5,10 @@ on:
     branches: [main]  # можно указать другие ветки
 
 env:
-  IMAGE_NAME_BACK: $IMAGE_NAME
-  SSH_USER: $SSH_USER
-  SSH_HOST: $SSH_HOST
-  PROJECT_DIR: $PROJECT_DIR
+  IMAGE_NAME_BACK: tiver211/bezmeteznost_minecraft_web
+  SSH_USER: tiver211
+  SSH_HOST: bezmeteznost.online
+  PROJECT_DIR: /home/tiver211/web
 
 jobs:
   build-and-push:
