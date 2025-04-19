@@ -5,10 +5,10 @@ on:
     branches: [main]  # можно указать другие ветки
 
 env:
-  IMAGE_NAME_BACK: ${{ secret.IMAGE_NAME }}
-  SSH_USER: ${{ secret.SSH_USER }}
-  SSH_HOST: ${{ secret.SSH_HOST }}
-  PROJECT_DIR: ${{ secret.PROJECT_DIR }}
+  IMAGE_NAME_BACK: ${{ env.IMAGE_NAME }}
+  SSH_USER: ${{ env.SSH_USER }}
+  SSH_HOST: ${{ env.SSH_HOST }}
+  PROJECT_DIR: ${{ env.PROJECT_DIR }}
 
 jobs:
   build-and-push:
