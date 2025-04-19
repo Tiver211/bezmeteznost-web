@@ -1,0 +1,32 @@
+services:
+  app:
+    image: ${IMAGE_NAME}
+    environment:
+      POSTGRES_CONN: ${POSTGRES_CONN}
+      RANDOM_SECRET: ${RANDOM_SECRET}
+      REDIS_CONN: "redis:6380"
+
+    ports:
+      - "80:80"
+      - "443:443"
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: ${POSTGRES_USERNAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+    ports:
+      - "5432"
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6380"
+    restart: always
+    volumes:
+      - redis_data:/data
+    command: ["redis-server", "--port", "6380"]
+
+volumes:
+  redis_data:

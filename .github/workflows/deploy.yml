@@ -1,0 +1,69 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]  # можно указать другие ветки
+
+env:
+  IMAGE_NAME_BACK: ${{ secret.IMAGE_NAME_BACK }}
+  SSH_USER: ${{ secret.SSH_USER }}
+  SSH_HOST: ${{ secret.SSH_HOST }}
+  PROJECT_DIR: ${{ secret.PROJECT_DIR }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Registry
+        uses: docker/login-action@v3
+        with:
+          registry: your-registry.com
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build and Push Backend Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./api/Dockerfile
+          push: true
+          tags: ${{ env.IMAGE_NAME_BACK }}:${{ github.sha }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST <<EOF
+            docker login your-registry.com -u ${{ secrets.REGISTRY_USER }} -p ${{ secrets.REGISTRY_PASSWORD }}
+            mkdir -p $PROJECT_DIR
+          EOF
+
+          scp docker-compose.yml $SSH_USER@$SSH_HOST:$PROJECT_DIR/docker-compose.yml
+
+          ssh $SSH_USER@$SSH_HOST <<EOF
+            cd $PROJECT_DIR
+            echo "IMAGE_NAME=${{ env.IMAGE_NAME }}:${{ github.sha }}" > .env
+            echo "POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }}" >> .env
+            echo "POSTGRES_USERNAME=${{ secrets.POSTGRES_USERNAME }}" >> .env
+            echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
+            echo "RANDOM_SECRET=${{ secrets.RANDOM_SECRET }}" >> .env
+            docker compose down || true
+            docker compose pull
+            docker compose up -d
+          EOF
