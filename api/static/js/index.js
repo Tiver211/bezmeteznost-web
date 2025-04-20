@@ -1,4 +1,3 @@
-// Функция для отображения/скрытия меню аккаунта
 function toggleMenu() {
     const menu = document.getElementById("accountMenu");
     menu.style.display = menu.style.display === "block" ? "none" : "block";
@@ -26,4 +25,5 @@ async function clearIps() {
 
 function goToDifferentPort() {
     window.location.port = "3876";
+
 }
