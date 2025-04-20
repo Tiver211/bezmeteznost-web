@@ -6,6 +6,9 @@ services:
       RANDOM_SECRET: ${RANDOM_SECRET}
       REDIS_CONN: "redis:6380"
 
+    volumes:
+      -  /home/tiver211/mods/mods.zip:/api/static/mods.zip
+
     ports:
       - "80:80"
       - "443:443"

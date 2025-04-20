@@ -1,23 +1,26 @@
 import os
-from uuid import uuid4
+from api.routes import blueprint
+from flask import Flask, jsonify, redirect, url_for, request
+from .extensions import *
+from .models import *
 
-import bcrypt
-import uvicorn
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy.orm import Session
-from starlette.responses import JSONResponse
+app = Flask(__name__)
 
-app = FastAPI(
-    openapi_url="/api/openapi.json",
-    docs_url="/api/docs",
-)
+app.config["SECRET_KEY"] = os.getenv('RANDOM_SECRET')
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("POSTGRES_CONN")
 
-@app.get("/api/ping")
+login_manager.init_app(app)
+db.init_app(app)
+
+login_manager.login_view = 'main.pages.login_page'
+app.register_blueprint(blueprint)
+
+with app.app_context():
+    db.create_all()
+
+@app.route('/api/ping')
 def ping():
-    return JSONResponse(status_code=200, content="PROOOOOOOOOOD")
+    return jsonify({"status": "ok"}), 200
 
 if __name__ == "__main__":
-    server_address = os.getenv("SERVER_ADDRESS", "0.0.0.0:443")
-    host, port = server_address.split(":")
-    uvicorn.run(app, host=host, port=int(port))
+    app.run(debug=True, host="0.0.0.0", port=80)

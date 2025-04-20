@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Регистрация</title>
+  <link rel="stylesheet" href="static/css/login.css">
+  <script src="static/js/register.js" defer></script>
+  <link rel="shortcut icon" href="/static/favicon.ico">
+  <style>
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+    .match-message {
+      color: green;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Регистрация</h2>
+    <form onsubmit="return validatePasswords()" id="registerForm">
+      <label for="username">Логин</label>
+      <input type="text" id="username" name="username" placeholder="Введите логин" required>
+
+      <label for="password">Пароль</label>
+      <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+
+      <label for="password_again">Повторите пароль</label>
+      <input type="password" id="password_again" name="password_again" placeholder="Введите пароль" required>
+      <div id="passwordError" class="error-message">Пароли не совпадают</div>
+      <div id="passwordMatch" class="match-message">Пароли совпадают</div>
+
+      <div id="error-message" class="error-message" style="display: block;"></div>
+
+      <button type="submit">Зарегистрироваться</button>
+    </form>
+    <p>Есть аккаунт? <a href="/login">Войти</a></p>
+  </div>
+
+</body>
+</html>

@@ -7,7 +7,7 @@ on:
 env:
   IMAGE_NAME: tiver211/bezmeteznost_minecraft_web
   SSH_USER: tiver211
-  SSH_HOST: 158.160.93.148
+  SSH_HOST: bezmetejnost.online
   PROJECT_DIR: /home/tiver211/web
 
 jobs:
@@ -42,16 +42,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Decode SSH Key
-        run: echo "${{ secrets.SSH_PRIVATE_KEY_BASE64 }}" | base64 --decode > ~/.ssh/id_rsa
-
-      - name: Set correct permissions for SSH key
-        run: chmod 600 ~/.ssh/id_rsa
-
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          ssh-private-key: ~/.ssh/id_rsa
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Deploy to VPS
         run: |
@@ -59,17 +53,18 @@ jobs:
             docker login docker.io -u ${{ secrets.REGISTRY_USER }} -p ${{ secrets.REGISTRY_PASSWORD }}
             mkdir -p ${{ env.PROJECT_DIR }}
           EOF
-
-          scp docker-compose.yml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_DIR}}/docker-compose.yml
-
+          ls 
+          scp docker-compose.yaml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_DIR }}/docker-compose.yml
+        
           ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} <<EOF
             cd ${{ env.PROJECT_DIR }}
             echo "IMAGE_NAME=${{ env.IMAGE_NAME }}:${{ github.sha }}" > .env
             echo "POSTGRES_DATABASE=${{ secrets.POSTGRES_DATABASE }}" >> .env
             echo "POSTGRES_USERNAME=${{ secrets.POSTGRES_USERNAME }}" >> .env
             echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
+            echo "POSTGRES_CONN=postgresql://${{ secrets.POSTGRES_USERNAME }}:${{ secrets.POSTGRES_PASSWORD }}@postgres:5432/${{ secrets.POSTGRES_DATABASE }}" >> .env
             echo "RANDOM_SECRET=${{ secrets.RANDOM_SECRET }}" >> .env
-            docker compose down || true
-            docker compose pull
-            docker compose up -d
+            sudo docker compose down || true
+            sudo docker compose pull
+            sudo docker compose up -d
           EOF

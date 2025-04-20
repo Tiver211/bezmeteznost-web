@@ -1,9 +1,6 @@
-fastapi
-sqlalchemy
-uvicorn
-pydantic
-PyJWT
+flask
+flask-sqlalchemy
+redis
 bcrypt
 psycopg2-binary
-redis
-python-multipart
+flask-login
