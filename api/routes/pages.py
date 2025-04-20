@@ -1,18 +1,22 @@
 from flask import Blueprint, render_template
-from flask_jwt_extended import jwt_required
+from flask_login import login_required, current_user
 
 blueprint = Blueprint("pages", __name__)
 
 
-@blueprint.route("/login", methods=["GET"])
+@blueprint.route("/login", methods=["GET"], endpoint='login_page')
 def login():
     return render_template("login.html")
 
-@jwt_required()
 @blueprint.route("/", methods=["GET"])
-def login():
-    return render_template("index.html")
+@login_required
+def index():
+    return render_template("index.html", username=current_user.login)
 
-@blueprint.route("/register", methods=["GET"])
-def login():
+@blueprint.route("/register", methods=["GET"], endpoint='register_page')
+def register():
     return render_template("register.html")
+
+@blueprint.route("/settings", methods=["GET"])
+def settings():
+    return render_template("settings.html")

@@ -1,4 +1,6 @@
 flask
 flask-sqlalchemy
-flask-jwt-extended
 redis
+bcrypt
+psycopg2-binary
+flask-login

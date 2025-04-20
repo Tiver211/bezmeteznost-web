@@ -1,17 +1,22 @@
 import os
 from api.routes import blueprint
-from flask import Flask, jsonify
-from extensions import *
+from flask import Flask, jsonify, redirect, url_for, request
+from .extensions import *
+from .models import *
 
 app = Flask(__name__)
 
-app.config["JWT_SECRET_KEY"] = os.getenv('RANDOM_SECRET')
+app.config["SECRET_KEY"] = os.getenv('RANDOM_SECRET')
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("POSTGRES_CONN")
 
-jwt.init_app(app)
+login_manager.init_app(app)
 db.init_app(app)
 
+login_manager.login_view = 'main.pages.login_page'
 app.register_blueprint(blueprint)
+
+with app.app_context():
+    db.create_all()
 
 @app.route('/api/ping')
 def ping():

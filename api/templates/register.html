@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Регистрация</title>
   <link rel="stylesheet" href="static/css/login.css">
+  <script src="static/js/register.js" defer></script>
+  <link rel="shortcut icon" href="/static/favicon.ico">
   <style>
     .error-message {
       color: red;
@@ -22,7 +24,7 @@
 <body>
   <div class="login-container">
     <h2>Регистрация</h2>
-    <form action="/api/login" method="post" onsubmit="return validatePasswords()">
+    <form onsubmit="return validatePasswords()" id="registerForm">
       <label for="username">Логин</label>
       <input type="text" id="username" name="username" placeholder="Введите логин" required>
 
@@ -34,53 +36,12 @@
       <div id="passwordError" class="error-message">Пароли не совпадают</div>
       <div id="passwordMatch" class="match-message">Пароли совпадают</div>
 
+      <div id="error-message" class="error-message" style="display: block;"></div>
+
       <button type="submit">Зарегистрироваться</button>
     </form>
     <p>Есть аккаунт? <a href="/login">Войти</a></p>
   </div>
 
-  <script>
-    function validatePasswords() {
-      const password = document.getElementById('password').value;
-      const passwordAgain = document.getElementById('password_again').value;
-      const errorElement = document.getElementById('passwordError');
-      const matchElement = document.getElementById('passwordMatch');
-
-      if (password !== passwordAgain) {
-        errorElement.style.display = 'block';
-        matchElement.style.display = 'none';
-        return false;
-      } else {
-        errorElement.style.display = 'none';
-        matchElement.style.display = password.length > 0 ? 'block' : 'none';
-        return true;
-      }
-    }
-
-    function checkPasswordMatch() {
-      const password = document.getElementById('password').value;
-      const passwordAgain = document.getElementById('password_again').value;
-      const errorElement = document.getElementById('passwordError');
-      const matchElement = document.getElementById('passwordMatch');
-
-      if (password.length === 0 && passwordAgain.length === 0) {
-        errorElement.style.display = 'none';
-        matchElement.style.display = 'none';
-        return;
-      }
-
-      if (password !== passwordAgain) {
-        errorElement.style.display = 'block';
-        matchElement.style.display = 'none';
-      } else {
-        errorElement.style.display = 'none';
-        matchElement.style.display = 'block';
-      }
-    }
-
-    // Добавляем проверку при изменении любого из полей пароля
-    document.getElementById('password').addEventListener('input', checkPasswordMatch);
-    document.getElementById('password_again').addEventListener('input', checkPasswordMatch);
-  </script>
 </body>
 </html>

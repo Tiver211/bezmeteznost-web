@@ -3,30 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebSocket Example</title>
+    <title>Главная</title>
     <link rel="stylesheet" href="static/css/index.css">
     <script src="static/js/index.js" defer></script>
+    <link rel="shortcut icon" href="/static/favicon.ico">
 </head>
 <body>
-    <h1>WebSocket Test</h1>
+    <h1>ip controller</h1>
 
-    <!-- Account icon and menu -->
     <div class="account-container">
-        <div class="account-icon" onclick="toggleMenu()">👤</div>
+        <div class="account-icon" onclick="toggleMenu()">{{ username }}👤</div>
         <div id="accountMenu" class="account-menu">
             <ul>
                 <li><a href="/settings">Настройки</a></li>
-                <li><a href="/logout">Выход</a></li>
+                <li><a id="logout_button" onclick="logout()">Выход</a></li>
             </ul>
         </div>
     </div>
 
-    <!-- WebSocket Message Area -->
-    <div id="messages"></div>
+    <div id="Главная"></div>
 
-    <!-- WebSocket Input -->
-    <input type="text" id="messageInput" placeholder="Enter message">
-    <button onclick="sendMessage()">Send</button>
+    <a href="static/mods.zip" download>
+        <button>Скачать моды</button>
+    </a>
 
+    <button id="setIp" onclick="setIp()">Установить текущий ip</button>
+
+    <button id="clearIps" onclick="clearIps()">Отчистить ip</button>
 </body>
 </html>

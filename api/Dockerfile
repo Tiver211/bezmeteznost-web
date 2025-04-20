@@ -8,4 +8,4 @@ COPY . /api
 
 EXPOSE 80
 
-CMD ["python", "api/app.py"]
+CMD ["python", "-m", "api.app"]
