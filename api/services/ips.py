@@ -17,7 +17,11 @@ def clear_ips(user_id):
     db.session.commit()
 
 def verify_user_ip(login, ip):
-    user_id = User.query.filter_by(login=login).first().id
+    user = User.query.filter_by(login=login).first()
+    if not user:
+        return False
+
+    user_id = user.id
     ip = UserIp.query.filter_by(user_id=user_id, ip=ip).first()
     if not ip:
         return False

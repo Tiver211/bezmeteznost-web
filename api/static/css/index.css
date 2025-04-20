@@ -1,4 +1,8 @@
-/* Основные стили для страницы */
+button {
+        margin-bottom: 10px;
+        display: inline-block; /* Чтобы margin работал правильно */
+}
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
