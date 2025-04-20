@@ -7,7 +7,7 @@ services:
       REDIS_CONN: "redis:6380"
 
     volumes:
-      - C:\Users\qwert\AppData\Roaming\ModrinthApp\profiles\mega create\mods.zip:/api/static/mods.zip
+      -  /home/tiver211/mods/mods.zip:/api/static/mods.zip
 
     ports:
       - "80:80"
