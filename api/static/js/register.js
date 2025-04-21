@@ -47,6 +47,11 @@ document.getElementById('registerForm').addEventListener('submit', async functio
     const password = document.getElementById('password').value;
     const errorElement = document.getElementById('error-message');
     const loginContainer = document.querySelector('.login-container');
+    const token_obj = document.getElementsByName("smart-token");
+    if (token_obj.lenght == 0) {
+        return;
+    }
+    const token = token_obj[0].value;
 
     // Очищаем предыдущее сообщение об ошибке и убираем класс тряски
     errorElement.textContent = '';
@@ -61,13 +66,21 @@ document.getElementById('registerForm').addEventListener('submit', async functio
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({"username": username, "password": password, "token": token})
       });
 
       const status = response.status;
 
-      if (status == 409) {
-          console.error('register arror');
+      if (status == 403) {
+          console.error('register error');
+          errorElement.textContent = 'Пройдите капчу';
+
+          // Добавляем класс с анимацией тряски
+          loginContainer.classList.add('shake');
+          return;
+      }
+      else if (status == 409) {
+          console.error('register error');
           errorElement.textContent = 'Логин уже занят, если это ваш логин обратитесь к администрации';
 
           // Добавляем класс с анимацией тряски

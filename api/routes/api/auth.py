@@ -9,6 +9,10 @@ blueprint = Blueprint("auth", __name__, url_prefix="/auth")
 def register():
     login = request.json.get("username")
     password = request.json.get("password")
+    token = request.json.get("token")
+
+    if not validate_capcha(token, request.remote_addr):
+        return jsonify({"msg": "bad capcha"}), 403
 
     if User.query.filter_by(login=login).first():
         flash('Username already exists')
@@ -27,10 +31,12 @@ def register():
 def login():
     login = request.json.get("username")
     password = request.json.get("password")
-    print(login, flush=True)
+    token = request.json.get("token")
+
+    if not validate_capcha(token, request.remote_addr):
+        return jsonify({"msg": "bad capcha"}), 403
 
     code, user_id = login_user_func(login, password)
-    print(code, flush=True)
     if code != 200:
         flash('incorrect login or password')
         return jsonify({"msg": "incorrect login or password"}), 401

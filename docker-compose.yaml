@@ -5,6 +5,7 @@ services:
       POSTGRES_CONN: ${POSTGRES_CONN}
       RANDOM_SECRET: ${RANDOM_SECRET}
       REDIS_CONN: "redis:6380"
+      CAPTCHA_TOKEN: ${CAPTCHA_TOKEN}
 
     volumes:
       -  /home/tiver211/mods/mods.zip:/api/static/mods.zip
