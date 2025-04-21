@@ -7,31 +7,47 @@
     <link rel="stylesheet" href="static/css/index.css">
     <script src="static/js/index.js" defer></script>
     <link rel="shortcut icon" href="/static/favicon.ico">
+    <script src="static/js/rules.js" defer></script>
+    <link rel="stylesheet" href="static/css/modal.css">
 </head>
 <body>
-    <h1>ip controller</h1>
-    <div class="account-container">
-        <div class="account-icon" onclick="toggleMenu()">{{ username }}👤</div>
-        <div id="accountMenu" class="account-menu">
-            <ul>
-                <li><a href="/settings">Настройки</a></li>
-                <li><a id="logout_button" onclick="logout()">Выход</a></li>
-            </ul>
-        </div>
+    <div id="modalOverlay" class="modal-overlay">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+      </div>
     </div>
+    <header>
+        <nav class="top-menu">
+            <h1 class="top-title">ip controller</h1>
+            <div class="account-container">
+                <div class="account-icon" onclick="toggleMenu()">
+                    <a class="account-name">{{ username }}</a><a class="account-icon">👤</a></div>
+                <div id="accountMenu" class="account-menu">
+                    <ul>
+                        <li><a href="/settings">Настройки</a></li>
+                        <li><a id="logout_button" onclick="logout()">Выход</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 
     <div id="Главная"></div>
-    <div>
-    <a href="static/mods.zip" download>
-        <button>Скачать моды</button>
-    </a>
+    <div class="button-group">
+        <p>Ваш ip <span id="ipAddress" class="ip-address" onclick="copyIp()">{{ user_ip }}</span></p>
+        <button id="setIp" onclick="setIp()">Установить текущий ip</button>
 
-    <button id="setIp" onclick="setIp()">Установить текущий ip</button>
-
-    <button id="clearIps" onclick="clearIps()">Отчистить ip</button>
+        <button id="clearIps" onclick="clearIps()">Отчистить ip</button>
     </div>
-    <div>
-    <button onclick="goToDifferentPort()">Открыть карту поездов</button>
+    <div class="button-group">
+        <a href="static/mods.zip" download>
+            <button>Скачать моды</button>
+        </a>
+        <button onclick="goToDifferentPort()">Открыть карту поездов</button>
+        <button id="openModalBtn">Просмотреть правила</button>
     </div>
+    <input id="username-input" style type="hidden" name="username" value="{{ username }}">
+    <input id="user-ip-input" style type="hidden" name="user-ip" value="{{ user_ip }}">
 </body>
 </html>
+

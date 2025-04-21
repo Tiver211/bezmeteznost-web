@@ -1,12 +1,57 @@
-button {
-        margin-bottom: 10px;
-        display: inline-block; /* Чтобы margin работал правильно */
-}
-
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 0;
+    background-image: url('/static/background.png');
+    background-size: cover;       /* Растягивает картинку на весь экран */
+    background-repeat: no-repeat; /* Отключает повторение */
+    background-attachment: fixed; /* Фиксирует фон при прокрутке */
+    background-position: center;  /* Центрирует картинку */
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+.top-menu {
+    background-color: #ffffff; /* Цвет фона */
+    padding: 10px 3px 3px 3px;
+}
+
+@media (max-width: 480px) {
+    .account-name {
+        display: none;
+    }
+    .account-icon {
+        margin-left: 0; /* убираем отступ, если был */
+    }
+}
+
+.account-name  {
+    max-width: 150px; /* или любое подходящее значение */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: middle;
+}
+.button-group {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0;
+    display: inline-block;
+    background: #f9f9f9;
+    width: 300px;
+    height: 150px;
+    align-items: center; /* Выравниваем по вертикали (можно `flex-start`, `center`, `flex-end`) */
+    gap: 10px;
+    vertical-align: top;
+}
+
+.button-group button {
+  margin: 5px;
 }
 
 /* Стили для аккаунт-меню */
@@ -14,6 +59,38 @@ body {
     position: absolute;
     top: 20px;
     right: 20px;
+}
+
+.ip-address {
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #f5f5f5;
+  transition: background 0.3s;
+  position: relative;
+  display: inline-block;
+}
+
+.ip-address:hover {
+  background: #e0e0e0;
+}
+
+.copy-feedback {
+  position: absolute;
+  left: 110%;
+  top: 50%;
+  color: #4CAF50;
+  font-weight: bold;
+  opacity: 0;
+  transition: all 0.5s;
+  pointer-events: none;
+  white-space: nowrap;
+  text-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+.copy-feedback.animate {
+  transform: translate(0, -50%) scale(1);
 }
 
 .account-icon {
@@ -42,27 +119,26 @@ body {
 .account-menu ul li {
     padding: 10px;
     margin: 5px 0;
-    border-radius: 8px; /* Закругленные углы */
-    background-color: #f5f5f5; /* Светло-серый фон */
-    transition: background-color 0.3s ease; /* Плавное изменение фона */
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    transition: background-color 0.3s ease;
 }
 
 .account-menu ul li:hover {
-    background-color: #e0e0e0; /* Тёмно-серый фон при наведении */
+    background-color: #e0e0e0;
 }
 
 .account-menu ul li a {
     text-decoration: none;
-    color: #555; /* Серый цвет текста */
+    color: #555;
     font-size: 14px;
     display: block;
 }
 
 .account-menu ul li a:hover {
-    color: #007BFF; /* Синий цвет текста при наведении */
+    color: #007BFF;
 }
 
-/* Стили для сообщений */
 #messages {
     margin-bottom: 20px;
     padding: 10px;
@@ -71,14 +147,12 @@ body {
     overflow-y: auto;
 }
 
-/* Стили для поля ввода */
 #messageInput {
     width: 300px;
     padding: 10px;
     font-size: 16px;
 }
 
-/* Стили для кнопки отправки */
 button {
     padding: 10px 20px;
     font-size: 16px;
@@ -86,10 +160,20 @@ button {
     color: white;
     border: none;
     cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 10px;
+    transition: transform 0.1s, box-shadow 0.1s;
 }
 
 button:hover {
     background-color: #0056b3;
+}
+
+button:active {
+    transform: scale(0.98);
+    background-color: #0056b3;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .settings-container {
@@ -99,4 +183,14 @@ button:hover {
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
   width: 300px;
   text-align: center;
+}
+
+.top-title {
+    color: #2c3e50;
+    text-align: center;
+}
+
+h2 {
+    color: #2980b9;
+    margin-top: 20px;
 }

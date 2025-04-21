@@ -1,0 +1,50 @@
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 80%;
+  max-height: 80vh;
+  overflow-y: auto; /* Разрешаем прокрутку */
+  scrollbar-width: none; /* Скрываем скроллбар в Firefox */
+  -ms-overflow-style: none; /* Скрываем скроллбар в IE/Edge */
+  position: relative;
+}
+
+/* Скрываем скроллбар в Chrome/Safari */
+.modal-content::-webkit-scrollbar {
+  display: none;
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.close-icon {
+  font-size: 28px;
+  color: #aaa;
+  transition: color 0.3s;
+}
+
+.close-modal:hover .close-icon {
+  color: #333;
+}
