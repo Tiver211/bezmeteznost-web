@@ -5,6 +5,7 @@ services:
       POSTGRES_CONN: ${POSTGRES_CONN}
       RANDOM_SECRET: ${RANDOM_SECRET}
       REDIS_CONN: "redis:6380"
+      CAPTCHA_TOKEN: ${CAPTCHA_TOKEN}
 
     volumes:
       -  /home/tiver211/mods/mods.zip:/api/static/mods.zip
@@ -19,6 +20,8 @@ services:
       POSTGRES_USER: ${POSTGRES_USERNAME}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DATABASE}
+    volumes:
+      - ${POSTGRES_VOLUME}:/var/lib/postgresql/data
     ports:
       - "5432"
 

@@ -5,13 +5,15 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     const password = document.getElementById('password').value;
     const errorElement = document.getElementById('error-message');
     const loginContainer = document.querySelector('.login-container');
+    const token_obj = document.getElementsByName("smart-token");
+    if (token_obj.lenght == 0) {
+        return;
+    }
+    const token = token_obj[0].value;
 
     // Очищаем предыдущее сообщение об ошибке и убираем класс тряски
     errorElement.textContent = '';
     loginContainer.classList.remove('shake');
-
-    console.log(username);
-    console.log(password);
 
     try {
       const response = await fetch('/api/auth/login', {
@@ -19,11 +21,20 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({"username": username, "password": password, "token": token })
       });
 
       if (!response.ok) {
-        throw new Error('Login failed');
+          switch (response.status.toString()) {
+              case "401":
+                  throw new Error('Login failed');
+              case "403":
+                  errorElement.textContent = 'Пройдите капчу';
+
+                  loginContainer.classList.add('shake');
+                  return;
+          }
+
       }
 
       window.location.href = '/';

@@ -1,5 +1,8 @@
+import os
+
 from api.models import *
 import bcrypt
+import requests
 
 def create_user(login, password):
     pwhash = get_hash(password)
@@ -28,3 +31,10 @@ def login_user_func(login, password):
 def get_user_by_id(user_id):
     user = User.query.get(user_id)
     return user
+
+def validate_capcha(token, user_ip):
+    answer = requests.post("https://smartcaptcha.yandexcloud.net/validate", data={"secret": os.getenv("CAPTCHA_TOKEN"), "token": token, "ip": user_ip})
+    if not answer.status_code == 200 or not answer.json().get("status") == "ok":
+        return False
+
+    return True
