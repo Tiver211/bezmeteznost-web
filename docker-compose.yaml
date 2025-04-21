@@ -36,4 +36,4 @@ services:
 
 volumes:
   redis_data:
-  ${POSTGRES_VOLUME}:
+  ${POSTGRES_VOLUME}?:
