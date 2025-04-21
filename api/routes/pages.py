@@ -20,3 +20,7 @@ def register():
 @blueprint.route("/settings", methods=["GET"])
 def settings():
     return render_template("settings.html")
+
+@blueprint.route("/yandex_b636febd9b43f9f9.html", methods=["GET"])
+def yandex_b636febd9b43f9f9():
+    return render_template("yandex_b636febd9b43f9f9.html")
