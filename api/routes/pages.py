@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
 
 blueprint = Blueprint("pages", __name__)
@@ -11,7 +11,7 @@ def login():
 @blueprint.route("/", methods=["GET"])
 @login_required
 def index():
-    return render_template("index.html", username=current_user.login)
+    return render_template("index.html", username=current_user.login, user_ip=request.remote_addr)
 
 @blueprint.route("/register", methods=["GET"], endpoint='register_page')
 def register():
