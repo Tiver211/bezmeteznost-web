@@ -9,6 +9,7 @@ env:
   SSH_USER: tiver211
   SSH_HOST: bezmetejnost.online
   PROJECT_DIR: /home/tiver211/web
+  POSTGRES_VOLUME: postgres_data  # Имя тома для базы данных
 
 jobs:
   build-and-push:
@@ -65,7 +66,10 @@ jobs:
             echo "POSTGRES_CONN=postgresql://${{ secrets.POSTGRES_USERNAME }}:${{ secrets.POSTGRES_PASSWORD }}@postgres:5432/${{ secrets.POSTGRES_DATABASE }}" >> .env
             echo "RANDOM_SECRET=${{ secrets.RANDOM_SECRET }}" >> .env
             echo "CAPTCHA_TOKEN=${{ secrets.CAPTCHA_TOKEN }}" >> .env
-            sudo docker compose down || true
-            sudo docker compose pull
+            echo "POSTGRES_VOLUME=${{ env.POSTGRES_VOLUME }}" >> .env
+            
+            # Останавливаем контейнеры без удаления (чтобы сохранить тома)
+            sudo docker compose stop || true
+            # Запускаем контейнеры с сохранением данных
             sudo docker compose up -d
           EOF
