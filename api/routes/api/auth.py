@@ -11,7 +11,7 @@ def register():
     password = request.json.get("password")
     token = request.json.get("token")
 
-    if not validate_capcha(token, request.remote_addr):
+    if not validate_capcha(token, request.headers.get("X-Real-IP")):
         return jsonify({"msg": "bad capcha"}), 403
 
     if User.query.filter_by(login=login).first():
@@ -33,7 +33,7 @@ def login():
     password = request.json.get("password")
     token = request.json.get("token")
 
-    if not validate_capcha(token, request.remote_addr):
+    if not validate_capcha(token, request.headers.get("X-Real-IP")):
         return jsonify({"msg": "bad capcha"}), 403
 
     code, user_id = login_user_func(login, password)

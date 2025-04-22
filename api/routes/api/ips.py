@@ -9,7 +9,7 @@ blueprint = Blueprint("ips", __name__, url_prefix="/ips")
 @blueprint.route("/set", methods=["POST"])
 @login_required
 def set_ip():
-    set_user_ip(current_user.id, request.remote_addr)
+    set_user_ip(current_user.id, request.headers.get("X-Real-IP"))
     return jsonify({"msg": "ok"}), 200
 
 @blueprint.route("/clear", methods=["POST"])

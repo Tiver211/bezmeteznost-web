@@ -11,7 +11,7 @@ def login():
 @blueprint.route("/", methods=["GET"])
 @login_required
 def index():
-    return render_template("index.html", username=current_user.login, user_ip=request.remote_addr)
+    return render_template("index.html", username=current_user.login, user_ip=request.headers.get("X-Real-IP"))
 
 @blueprint.route("/register", methods=["GET"], endpoint='register_page')
 def register():
