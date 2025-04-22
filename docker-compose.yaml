@@ -11,8 +11,7 @@ services:
       -  /home/tiver211/mods/mods.zip:/api/static/mods.zip
 
     ports:
-      - "80:80"
-      - "443:443"
+      - "5000"
 
   postgres:
     image: postgres:15
@@ -24,6 +23,17 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - /home/tiver211/certs:/etc/ssl:ro
+    depends_on:
+      - app
 
   redis:
     image: redis:latest
