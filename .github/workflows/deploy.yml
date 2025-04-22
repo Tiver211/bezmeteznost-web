@@ -56,6 +56,7 @@ jobs:
           EOF
           ls 
           scp docker-compose.yaml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_DIR }}/docker-compose.yml
+          scp -r nginx ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_DIR }}
         
           ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} <<EOF
             cd ${{ env.PROJECT_DIR }}
