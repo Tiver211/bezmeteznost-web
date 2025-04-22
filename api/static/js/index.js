@@ -38,10 +38,12 @@ document.getElementById('ipAddress').addEventListener('click', async function() 
 
     // Запускаем анимацию
     feedback.classList.add('animate');
+    this.style.color = '#4CAF50';
 
     // Через 1.5 секунды убираем анимацию
     setTimeout(() => {
       feedback.classList.remove('animate');
+      this.style.color = '#000000';
     }, 1500);
 
   } catch (err) {
