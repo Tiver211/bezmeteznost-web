@@ -2,14 +2,14 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main]  # можно указать другие ветки
+    branches: [main]
 
 env:
   IMAGE_NAME: tiver211/bezmeteznost_minecraft_web
   SSH_USER: tiver211
   SSH_HOST: bezmetejnost.online
   PROJECT_DIR: /home/tiver211/web
-  POSTGRES_VOLUME: postgres_data  # Имя тома для базы данных
+  POSTGRES_VOLUME: postgres_data
 
 jobs:
   build-and-push:
@@ -68,6 +68,8 @@ jobs:
             echo "RANDOM_SECRET=${{ secrets.RANDOM_SECRET }}" >> .env
             echo "CAPTCHA_TOKEN=${{ secrets.CAPTCHA_TOKEN }}" >> .env
             echo "POSTGRES_VOLUME=${{ env.POSTGRES_VOLUME }}" >> .env
+            echo "SMTP_PASS=${{ secrets.SMTP_PASS }}" >> .env
+          
             
             # Останавливаем контейнеры без удаления (чтобы сохранить тома)
             sudo docker compose stop || true

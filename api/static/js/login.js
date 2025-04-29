@@ -1,7 +1,7 @@
 document.getElementById('loginForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    const username = document.getElementById('username').value;
+    const mail = document.getElementById('mail').value;
     const password = document.getElementById('password').value;
     const errorElement = document.getElementById('error-message');
     const loginContainer = document.querySelector('.login-container');
@@ -21,7 +21,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({"username": username, "password": password, "token": token })
+        body: JSON.stringify({"mail": mail, "password": password, "token": token })
       });
 
       if (!response.ok) {

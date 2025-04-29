@@ -194,3 +194,18 @@ h2 {
     color: #2980b9;
     margin-top: 20px;
 }
+
+.server-info-group {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0;
+    display: inline-block;
+    background: #f9f9f9;
+    width: 300px;
+    height: 150px;
+    align-items: center; /* Выравниваем по вертикали (можно `flex-start`, `center`, `flex-end`) */
+    gap: 10px;
+    vertical-align: bottom;
+    position: relative;
+}

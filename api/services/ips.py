@@ -7,7 +7,6 @@ from api.models import UserIp, User
 
 def set_user_ip(user_id, ip):
     ip = UserIp(user_id=user_id, ip=ip)
-    print(user_id, flush=True)
     db.session.add(ip)
     db.session.commit()
 
