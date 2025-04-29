@@ -2,7 +2,6 @@ from flask import Blueprint, request, jsonify
 from flask_login import current_user, login_required
 
 from api.services.ips import set_user_ip, clear_ips, verify_user_ip
-from api.services.auth import get_user_by_id
 
 blueprint = Blueprint("ips", __name__, url_prefix="/ips")
 

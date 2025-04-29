@@ -68,6 +68,8 @@ jobs:
             echo "RANDOM_SECRET=${{ secrets.RANDOM_SECRET }}" >> .env
             echo "CAPTCHA_TOKEN=${{ secrets.CAPTCHA_TOKEN }}" >> .env
             echo "POSTGRES_VOLUME=${{ env.POSTGRES_VOLUME }}" >> .env
+            echo "SMTP_PASS=${{ secrets.SMTP_PASS }}" >> .env
+          
             
             # Останавливаем контейнеры без удаления (чтобы сохранить тома)
             sudo docker compose stop || true

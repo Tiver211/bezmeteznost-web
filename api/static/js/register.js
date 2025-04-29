@@ -1,18 +1,18 @@
 function validatePasswords() {
-      const password = document.getElementById('password').value;
-      const passwordAgain = document.getElementById('password_again').value;
-      const errorElement = document.getElementById('passwordError');
-      const matchElement = document.getElementById('passwordMatch');
+        const password = document.getElementById('password').value;
+        const passwordAgain = document.getElementById('password_again').value;
+        const errorElement = document.getElementById('passwordError');
+        const matchElement = document.getElementById('passwordMatch');
 
-      if (password !== passwordAgain) {
-        errorElement.style.display = 'block';
-        matchElement.style.display = 'none';
-        return false;
-      } else {
-        errorElement.style.display = 'none';
-        matchElement.style.display = password.length > 0 ? 'block' : 'none';
-        return true;
-      }
+        if (password !== passwordAgain) {
+          errorElement.style.display = 'block';
+          matchElement.style.display = 'none';
+          return false;
+        } else {
+          errorElement.style.display = 'none';
+          matchElement.style.display = password.length > 0 ? 'block' : 'none';
+          return true;
+        }
     }
 
 function checkPasswordMatch() {
@@ -43,6 +43,7 @@ document.getElementById('password_again').addEventListener('input', checkPasswor
 document.getElementById('registerForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
+    const mail = document.getElementById('mail').value;
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const errorElement = document.getElementById('error-message');
@@ -66,7 +67,7 @@ document.getElementById('registerForm').addEventListener('submit', async functio
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({"username": username, "password": password, "token": token})
+        body: JSON.stringify({"mail": mail, "login": username, "password": password, "token": token})
       });
 
       const status = response.status;

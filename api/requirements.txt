@@ -6,3 +6,6 @@ psycopg2-binary
 flask-login
 requests
 gunicorn
+flask-mail
+marshmallow
+itsdangerous

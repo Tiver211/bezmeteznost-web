@@ -18,5 +18,6 @@ def register():
     return render_template("register.html")
 
 @blueprint.route("/settings", methods=["GET"])
+@login_required
 def settings():
     return render_template("settings.html")
