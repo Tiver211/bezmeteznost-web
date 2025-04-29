@@ -52,6 +52,13 @@ def verify_mail():
     return redirect("/")
 
 @blueprint.route("/logout", methods=["POST"])
+@login_required
 def logout():
     logout_user()
+    return jsonify({"msg": "ok"}), 200
+
+@blueprint.route("resend", methods=["POST"])
+@login_required
+def resend_mail():
+    generate_mail_verification_request(current_user)
     return jsonify({"msg": "ok"}), 200

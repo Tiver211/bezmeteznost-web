@@ -1,6 +1,10 @@
 import json
 import os
 from datetime import timedelta
+from functools import wraps
+
+from flask import redirect
+from flask_login import current_user
 
 from api.extensions import redis_client
 from api.models import *
@@ -70,8 +74,12 @@ def generate_mail_verification_request(user):
     login = user.login
     user_id = user.id
 
+    if redis_client.get(f"last_verify_request:{mail}"):
+        return False
+
     token = generate_verification_token()
     redis_client.set(f"verify_mail:{token}", str(user_id), ex=timedelta(days=1))
+    redis_client.set(f"last_verify_request:{mail}", "requested", ex=timedelta(seconds=30))
     send_verification_mail(token, mail, login)
 
 
@@ -91,3 +99,12 @@ def verify_user_mail(token):
 
 def get_user_by_id(user_id):
     return User.query.get(user_id)
+
+def verify_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not getattr(current_user, 'verify_mail', False):
+            return redirect('/verify_page')  # Или другой эндпоинт
+        return f(*args, **kwargs)
+
+    return decorated_function

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подтвердите вашу почту</title>
+    <link rel="stylesheet" href="/static/css/verify_page.css">
+    <style>
+        .timer {
+            display: none;
+            margin-top: 10px;
+            color: #666;
+        }
+        .resend-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">✉️</div>
+        <h1>Подтвердите вашу электронную почту</h1>
+        <p>Перед входом в систему необходимо подтвердить ваш email-адрес <span class="email">{{ mail }}</span>.</p>
+        <p>Пожалуйста, проверьте вашу почту и перейдите по ссылке в письме для завершения регистрации.</p>
+
+        <a href="/" class="btn">Проверить</a>
+
+        <div class="resend">
+            Не получили письмо?
+            <button id="resendBtn" class="resend-btn">Отправить повторно</button>
+            <div id="timer" class="timer">Повторная отправка будет доступна через: <span id="time">30</span> сек.</div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('resendBtn').addEventListener('click', function() {
+            const btn = this;
+            const timerElement = document.getElementById('timer');
+            const timeElement = document.getElementById('time');
+
+            // Отправляем запрос на сервер
+            fetch('/api/auth/resend', {
+                method: 'POST',
+            });
+
+            // Блокируем кнопку и запускаем таймер
+            btn.disabled = true;
+            timerElement.style.display = 'block';
+
+            let timeLeft = 30;
+            timeElement.textContent = timeLeft;
+
+            const timer = setInterval(() => {
+                timeLeft--;
+                timeElement.textContent = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    btn.disabled = false;
+                    timerElement.style.display = 'none';
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
