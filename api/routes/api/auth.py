@@ -16,10 +16,12 @@ def register():
     if not validate_captcha(token, request.headers.get("X-Real-IP")):
         return jsonify({"msg": "bad captcha"}), 403
 
-    code = register_user(mail, login, password)
+    code, user = register_user(mail, login, password)
     if not code == 200:
         flash('Error, try again later')
         return jsonify({"msg": "error while creating user"}), code
+
+    login_user(user)
 
     return jsonify({"msg": "ok"})
 
@@ -33,13 +35,13 @@ def login():
         return jsonify({"msg": "bad captcha"}), 403
 
     code, user = authenticate_user(mail, password)
-    if code != 200:
+    if code != 200 and code != 423:
         flash('incorrect login or password')
         return jsonify({"msg": "incorrect login or password"}), code
 
     login_user(user)
 
-    return jsonify({"msg": "ok"})
+    return jsonify({"msg": "ok" if code == 200 else "pls verify your mail"})
 
 @blueprint.route("/verify_mail", methods=["GET"])
 def verify_mail():

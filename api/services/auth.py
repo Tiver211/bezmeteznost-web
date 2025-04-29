@@ -35,17 +35,17 @@ def create_user(mail: str, login: str, password_hash: str):
 
 def register_user(mail, login, password):
     if not validate_schema(UserSchema, mail=mail, login=login, password=password):
-        return 400
+        return 400, None
 
     if not check_user_unique(mail, login):
-        return 409
+        return 409, None
 
     password_hash = create_password_hash(password)
 
     user = create_user(mail, login, password_hash)
     generate_mail_verification_request(user)
 
-    return 200
+    return 200, user
 
 def create_password_hash(password: str):
     pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
