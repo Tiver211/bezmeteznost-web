@@ -25,7 +25,7 @@ def register():
 @verify_required
 def settings():
     return render_template("settings.html")
-
+  
 @blueprint.route("/verify_page", methods=["GET"])
 @login_required
 def verify_page():
@@ -33,3 +33,4 @@ def verify_page():
         return redirect('/')
 
     return render_template('verify_page.html', mail=current_user.mail), 200
+
