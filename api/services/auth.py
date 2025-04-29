@@ -19,7 +19,7 @@ def validate_captcha(token: str, user_ip: str) -> bool:
     answer = requests.post("https://smartcaptcha.yandexcloud.net/validate",
                            data={"secret": os.getenv("CAPTCHA_TOKEN"), "token": token, "ip": user_ip})
 
-    if answer.status_code == 200 or answer.json().get("status") == "ok":
+    if answer.status_code == 200 and answer.json().get("status") == "ok":
         return True
 
     return False
