@@ -50,10 +50,11 @@ jobs:
 
       - name: Deploy to VPS
         run: |
-          ssh -tt -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} <<EOF
+          ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} <<EOF
             docker login docker.io -u ${{ secrets.REGISTRY_USER }} -p ${{ secrets.REGISTRY_PASSWORD }}
             mkdir -p ${{ env.PROJECT_DIR }}
           EOF
+          
           ls 
           scp docker-compose.yaml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_DIR }}/docker-compose.yml
           scp -r nginx ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_DIR }}
