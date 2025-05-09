@@ -38,7 +38,7 @@ resource "yandex_compute_instance" "web" {
 
   boot_disk {
     initialize_params {
-      image_id = "fd800c7s2p483i648ifv" # Ubuntu 20.04
+      image_id = "fd865v46cboopthn7u0k" # Ubuntu 20.04
       size     = 15
     }
   }
@@ -65,7 +65,7 @@ resource "yandex_compute_instance" "minecraft" {
 
   boot_disk {
     initialize_params {
-      image_id = "fd800c7s2p483i648ifv" # Ubuntu 20.04
+      image_id = "fd865v46cboopthn7u0k" # Ubuntu 20.04
       size     = 50                     # Для мира Minecraft
     }
   }
