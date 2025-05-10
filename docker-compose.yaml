@@ -11,8 +11,6 @@ services:
     volumes:
       -  /home/tiver211/mods/mods.zip:/api/static/mods.zip
 
-    ports:
-      - "5000"
     depends_on:
       - postgres
       - redis

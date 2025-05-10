@@ -33,7 +33,8 @@ resource "yandex_compute_instance" "web" {
 
   resources {
     cores  = 2
-    memory = 2
+    memory = 0.5
+    core_fraction = 5
   }
 
   boot_disk {
@@ -122,5 +123,7 @@ resource "yandex_smartcaptcha_captcha" "demo-advanced-smartcaptcha" {
   complexity     = "EASY"
   pre_check_type = "SLIDER"
   challenge_type = "KALEIDOSCOPE"
-
+   allowed_sites = [
+    "bezmetejnost.ru"
+   ]
 }
