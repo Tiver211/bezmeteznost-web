@@ -125,7 +125,7 @@ const button = document.getElementById('clearIps');
         button.style.backgroundColor = '#4CAF50FF';
 
         setTimeout(function() {
-            button.style.backgroundColor = '#007BFF';
+            button.style.backgroundColor = '#f44336';
         }, 700);
 });
 
@@ -148,6 +148,20 @@ function checkMobileOverlap() {
         accountName.style.display = 'inline'; // на ПК всегда показываем
     }
 }
+
+function copyIp() {
+            const ipElement = document.getElementById('ipAddress');
+            const ip = ipElement.textContent;
+
+            navigator.clipboard.writeText(ip).then(() => {
+                const originalText = ipElement.textContent;
+                ipElement.textContent = "IP скопирован!";
+
+                setTimeout(() => {
+                    ipElement.textContent = originalText;
+                }, 2000);
+            });
+        }
 
 // Проверяем при загрузке и изменении размера
 window.addEventListener('load', checkMobileOverlap);

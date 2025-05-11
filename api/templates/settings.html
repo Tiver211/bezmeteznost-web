@@ -5,18 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Настройки IP - Название вашего сервера</title>
     <link rel="stylesheet" href="/static/css/settings.css">
-    <script src="/static/js/settings.js"></script>
 </head>
 <body>
     <header>
         <div class="header-container">
-            <div class="logo">Название сервера</div>
+            <a href="/" class="logo-link">
+              <div class="logo">Безмятежность</div>
+            </a>
             <nav>
                 <ul>
                     <li><a href="/">Главная</a></li>
-                    <li><a href="/settings" class="active">Настройки IP</a></li>
-                    <li><a href="/rules">Правила</a></li>
-                    <li><a href="/news">Новости</a></li>
+                    <li><a onclick="logout()" style="cursor: pointer">Выйти</a></li>
                 </ul>
             </nav>
         </div>
@@ -38,124 +37,16 @@
 
             <div class="button-group">
                 <p>Ваш IP: <span id="ipAddress" class="ip-address" onclick="copyIp()">{{ user_ip }}</span></p>
-                <button id="setIp" class="btn" onclick="setIp()">Установить текущий IP</button>
+                <button id="setIp" class="ipBtn" onclick="setIp()">Установить текущий IP</button>
                 <button id="clearIps" class="btn btn-warning" onclick="clearIps()">Очистить IP</button>
             </div>
-
-            <div class="button-group">
-                <a href="static/mods.zip" download class="btn">
-                    Скачать моды
-                </a>
-                <button class="btn btn-secondary" onclick="goToDifferentPort()">Открыть карту поездов</button>
-                <button id="openModalBtn" class="btn">Просмотреть правила</button>
-            </div>
-        </div>
     </div>
 
-    <!-- Модальное окно с правилами -->
-    <div id="rulesModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Правила сервера</h2>
-            <div id="rulesContent">
-                <!-- Здесь будет загруженное содержимое правил -->
-                <p>1. Уважайте других игроков</p>
-                <p>2. Не используйте читы</p>
-                <p>3. Не гриферьте</p>
-                <p>4. Следуйте указаниям администрации</p>
-                <p>5. Используйте IP-авторизацию для защиты аккаунта</p>
-            </div>
-        </div>
-    </div>
-
+    <input id="username-input" style type="hidden" name="username" value="{{ username }}">
+    <input id="user-ip-input" style type="hidden" name="user-ip" value="{{ user_ip }}">
     <footer>
-        <p>&copy; 2023 Название вашего сервера. Все права защищены.</p>
+        <p>&copy; 2025 bezmetejnost. Все права защищены.</p>
     </footer>
-
-    <script>
-        // Получаем текущий IP пользователя (в реальности это должно приходить с сервера)
-        document.addEventListener('DOMContentLoaded', function() {
-            // Здесь должен быть запрос к серверу для получения текущего IP пользователя
-            // Для демонстрации используем фиктивный IP
-            document.getElementById('ipAddress').textContent = "{{ user_ip }}";
-        });
-
-        function copyIp() {
-            const ipElement = document.getElementById('ipAddress');
-            const ip = ipElement.textContent;
-
-            navigator.clipboard.writeText(ip).then(() => {
-                const originalText = ipElement.textContent;
-                ipElement.textContent = "IP скопирован!";
-
-                setTimeout(() => {
-                    ipElement.textContent = originalText;
-                }, 2000);
-            });
-        }
-
-        function setIp() {
-            // Здесь должен быть запрос к серверу для установки IP
-            showMessage('success', 'Текущий IP успешно установлен для авторизации');
-        }
-
-        function clearIps() {
-            // Здесь должен быть запрос к серверу для очистки IP
-            if(confirm("Вы уверены, что хотите очистить все привязанные IP-адреса?")) {
-                showMessage('success', 'Все IP-адреса успешно очищены');
-            }
-        }
-
-        function goToDifferentPort() {
-            // Перенаправление на другой порт
-            window.location.href = "http://" + window.location.hostname + ":8080";
-        }
-
-        function showMessage(type, text) {
-            const successEl = document.getElementById('success-message');
-            const errorEl = document.getElementById('error-message');
-
-            if(type === 'success') {
-                successEl.textContent = text;
-                successEl.style.display = 'block';
-                errorEl.style.display = 'none';
-            } else {
-                errorEl.textContent = text;
-                errorEl.style.display = 'block';
-                successEl.style.display = 'none';
-            }
-
-            setTimeout(() => {
-                successEl.style.display = 'none';
-                errorEl.style.display = 'none';
-            }, 3000);
-        }
-
-        // Модальное окно
-        const modal = document.getElementById("rulesModal");
-        const btn = document.getElementById("openModalBtn");
-        const span = document.getElementsByClassName("close")[0];
-
-        btn.onclick = function() {
-            modal.style.display = "block";
-
-            // Здесь может быть загрузка правил с сервера, если они не загружены
-            // fetch('/api/rules')
-            //     .then(response => response.text())
-            //     .then(data => {
-            //         document.getElementById('rulesContent').innerHTML = data;
-            //     });
-        }
-
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
+    <script src="/static/js/settings.js"></script>
 </body>
 </html>

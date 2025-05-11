@@ -32,6 +32,14 @@ function fetchServerStatus() {
 function goToDifferentPort() {
     window.location.port = "3876";
 }
+
+async function logout() {
+     const response = await fetch ('/api/auth/logout', {
+        method: 'POST',
+     });
+     location.reload();
+}
+
 // Загружаем статус при открытии страницы
 document.addEventListener('DOMContentLoaded', fetchServerStatus);
 

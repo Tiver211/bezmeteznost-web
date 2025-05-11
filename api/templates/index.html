@@ -19,8 +19,12 @@
                 </a>
                 <nav>
                     <ul>
-{#                        <li><a href="/">Главная</a></li>#}
-                        <!-- <li><a href="/news">Новости</a></li>-->
+                       {% if current_user.is_authenticated and current_user.verify_mail %}
+                            <li><a href="/settings" style="cursor: pointer">Настройки</a></li>
+                            <li><a onclick="logout()" style="cursor: pointer">Выйти</a></li>
+                        {% else %}
+                            <li><a href="/login" style="cursor: pointer">Войти</a></li>
+                        {% endif %}
                     </ul>
                 </nav>
             </div>
