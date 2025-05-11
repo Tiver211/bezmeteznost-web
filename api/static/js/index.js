@@ -30,7 +30,7 @@ function fetchServerStatus() {
 }
 
 function goToDifferentPort() {
-    window.location.port = "3876";
+    window.location.href = "http://bezmetejnost.online:3876";
 }
 
 async function logout() {
