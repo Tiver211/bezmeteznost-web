@@ -6,21 +6,7 @@
     <link rel="stylesheet" href="static/css/login.css">
     <script src="static/js/register.js" defer></script>
     <link rel="shortcut icon" href="/static/favicon.ico">
-    <script src="https://smartcaptcha.yandexcloud.net/captcha.js" defer></script>
-    <style>
-      .error-message {
-        color: red;
-        font-size: 12px;
-        margin-top: 5px;
-        display: none;
-      }
-      .match-message {
-        color: green;
-        font-size: 12px;
-        margin-top: 5px;
-        display: none;
-      }
-    </style>
+    <script src="https://smartcaptcha.yandexcloud.net/captcha.js?render=onload&onload=onloadFunction" defer ></script>
 </head>
 <body>
   <div class="login-container">
@@ -37,16 +23,11 @@
 
         <label for="password_again">Повторите пароль</label>
         <input type="password" id="password_again" name="password_again" placeholder="Введите пароль" required>
-        <div id="passwordError" class="error-message">Пароли не совпадают</div>
-        <div id="passwordMatch" class="match-message">Пароли совпадают</div>
 
-        <div id="error-message" class="error-message" style="display: block;"></div>
+        <div id="error-message" class="error-message"></div>
 
-        <div
-          id="captcha-container"
-          class="smart-captcha"
-          data-sitekey="ysc1_LVBjU7yIahGOgFwLJvUlpoQUYEhywwdtrsNwCfku57778ddd"
-        ></div>
+        <div id="captcha-container"></div>
+
         <button type="submit">Зарегистрироваться</button>
     </form>
     <p>Есть аккаунт? <a href="/login">Войти</a></p>

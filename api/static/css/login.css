@@ -1,92 +1,130 @@
-/* Центрирование всей страницы */
+/* Основные стили страницы */
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
-  justify-content: center; /* Центр по горизонтали */
-  align-items: center;     /* Центр по вертикали */
-  background-color: #f2f2f2;
-  font-family: Arial, sans-serif;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a1a1a; /* Темный фон */
+  font-family: 'Arial', sans-serif;
+  color: #e0e0e0; /* Светлый текст */
 }
 
-/* Стиль контейнера формы */
+/* Контейнер формы */
 .login-container {
-  background-color: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  width: 300px;
-  text-align: center; /* Центрирует заголовок и элементы внутри */
-}
-
-/* Анимация тряски */
-.shake {
-  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-  transform: translate3d(0, 0, 0);
-}
-
-@keyframes shake {
-  10%, 90% {
-    transform: translate3d(-2px, 0, 0);
-  }
-
-  20%, 80% {
-    transform: translate3d(4px, 0, 0);
-  }
-
-  30%, 50%, 70% {
-    transform: translate3d(-6px, 0, 0);
-  }
-
-  40%, 60% {
-    transform: translate3d(6px, 0, 0);
-  }
-}
-
-.error-message {
-  color: #ff0000;
-  margin: 10px 0;
+  background-color: #252525; /* Темный фон контейнера */
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  width: 350px;
   text-align: center;
-  font-size: 14px;
+  border: 1px solid #333; /* Тонкая граница */
 }
+
 /* Заголовок */
 .login-container h2 {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  color: #4CAF50; /* Акцентный цвет */
+  font-size: 24px;
 }
 
 /* Поля ввода */
-input[type="text"], input[type="password"] {
+input[type="text"],
+input[type="password"] {
   width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  padding: 12px 15px;
+  margin: 8px 0 15px;
+  background-color: #333; /* Темный фон полей */
+  border: 1px solid #444;
+  border-radius: 8px;
   box-sizing: border-box;
+  color: #fff;
+  font-size: 15px;
+  transition: border-color 0.3s;
 }
 
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: #4CAF50; /* Подсветка при фокусе */
+}
+
+/* Лейблы */
 label {
   display: block;
   text-align: left;
-  margin-top: 10px;
-  margin-bottom: 5px;
-  font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #b0b0b0;
+  font-size: 14px;
 }
 
 /* Кнопка */
 button {
   width: 100%;
-  padding: 10px;
-  margin-top: 10px;
+  padding: 12px;
+  margin-top: 20px;
   background-color: #4CAF50;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
+  transition: all 0.3s;
 }
 
 button:hover {
   background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Анимация тряски */
+.shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translate3d(-2px, 0, 0); }
+  20%, 80% { transform: translate3d(4px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+  40%, 60% { transform: translate3d(6px, 0, 0); }
+}
+
+/* Сообщение об ошибке */
+.error-message {
+  color: #ff5555;
+  margin: 15px 0;
+  padding: 10px;
+  background-color: rgba(255, 85, 85, 0.1);
+  border-radius: 6px;
+  font-size: 14px;
+  text-align: center;
+  display: none;
+}
+
+/* Дополнительные элементы */
+.login-footer {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #777;
+}
+
+.login-footer a {
+  color: #4CAF50;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.login-footer a:hover {
+  color: #45a049;
+  text-decoration: underline;
 }

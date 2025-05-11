@@ -1,213 +1,229 @@
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin-top: 0;
-    background-image: url('/static/background.png');
-    background-size: cover;       /* Растягивает картинку на весь экран */
-    background-repeat: no-repeat; /* Отключает повторение */
-    background-attachment: fixed; /* Фиксирует фон при прокрутке */
-    background-position: center;  /* Центрирует картинку */
-}
-
-body, html {
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    line-height: 1.6;
 }
 
-.top-menu {
-    background-color: #ffffff; /* Цвет фона */
-    padding: 10px 3px 3px 3px;
+/* Стили header (взяты из текущей версии) */
+header {
+    background-color: #0d0d0d;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-@media (max-width: 480px) {
-    .account-name {
-        display: none;
-    }
-    .account-icon {
-        margin-left: 0; /* убираем отступ, если был */
-    }
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
 }
 
-.account-name  {
-    max-width: 150px; /* или любое подходящее значение */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: inline-block;
-    vertical-align: middle;
-}
-.button-group {
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    margin: 10px 0;
-    display: inline-block;
-    background: #f9f9f9;
-    width: 300px;
-    height: 150px;
-    align-items: center; /* Выравниваем по вертикали (можно `flex-start`, `center`, `flex-end`) */
-    gap: 10px;
-    vertical-align: top;
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4CAF50;
 }
 
-.button-group button {
-  margin: 5px;
-}
-
-/* Стили для аккаунт-меню */
-.account-container {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
-
-.ip-address {
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-  background: #f5f5f5;
-  transition: background 0.3s;
-  position: relative;
-  display: inline-block;
-    z-index: 1;
-}
-
-.ip-address:hover {
-  background: #e0e0e0;
-}
-
-.copy-feedback {
-  position: absolute;
-  left: 110%;
-  top: 50%;
-  color: #4CAF50;
-  font-weight: bold;
-  opacity: 0;
-  transition: all 0.5s;
-  pointer-events: none;
-  white-space: nowrap;
-  text-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
-  transform: translate(-50%, -50%) scale(0.9);
-}
-
-.copy-feedback.animate {
-  transform: translate(0, -50%) scale(1);
-}
-
-.account-icon {
-    font-size: 30px;
-    cursor: pointer;
-}
-
-.account-menu {
-    z-index: 2;
-    display: none;
-    position: absolute;
-    top: 40px;
-    right: 0;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    width: 200px;
-}
-
-.account-menu ul {
+nav ul {
+    display: flex;
     list-style: none;
-    padding: 0;
-    margin: 0;
 }
 
-.account-menu ul li {
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 8px;
-    background-color: #f5f5f5;
-    transition: background-color 0.3s ease;
+nav ul li {
+    margin-left: 20px;
 }
 
-.account-menu ul li:hover {
-    background-color: #e0e0e0;
-}
-
-.account-menu ul li a {
+nav ul li a {
+    color: #ffffff;
     text-decoration: none;
-    color: #555;
-    font-size: 14px;
-    display: block;
+    transition: color 0.3s;
 }
 
-.account-menu ul li a:hover {
-    color: #007BFF;
+nav ul li a:hover {
+    color: #4CAF50;
 }
 
-#messages {
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-#messageInput {
-    width: 300px;
-    padding: 10px;
-    font-size: 16px;
-}
-
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-    border-radius: 10px;
-    transition: transform 0.1s, box-shadow 0.1s;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-button:active {
-    transform: scale(0.98);
-    background-color: #0056b3;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.settings-container {
-  background-color: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  width: 300px;
-  text-align: center;
-}
-
-.top-title {
-    color: #2c3e50;
+/* Основной контент */
+.main-content {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
     text-align: center;
 }
 
-h2 {
-    color: #2980b9;
+.server-info {
+    background-color: #252525;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
     margin-top: 20px;
 }
 
-.server-info-group {
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    margin: 10px 0;
+.info-item {
+    background-color: #333;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #4CAF50;
+    margin-bottom: 5px;
+}
+
+.status-on {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.status-off {
+    color: #f44336;
+    font-weight: bold;
+}
+
+/* Социальные ссылки */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.social-link {
     display: inline-block;
-    background: #f9f9f9;
-    width: 300px;
-    height: 150px;
-    align-items: center; /* Выравниваем по вертикали (можно `flex-start`, `center`, `flex-end`) */
-    gap: 10px;
-    vertical-align: bottom;
-    position: relative;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.social-link:hover {
+    background-color: #4CAF50;
+}
+
+.social-link.discord { background-color: #5865F2; }
+.social-link.boosty { background-color: #FF9933; }
+.social-link.youtube { background-color: #FF0000; }
+.social-link.telegram { background-color: #0088cc; }
+
+/* Кнопки загрузки */
+.download-buttons {
+    margin-top: 40px;
+}
+
+.download-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    margin: 0 10px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.download-btn:hover {
+    background-color: #45a049;
+}
+
+.logo-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+
+.logo-link:hover .logo {
+  color: #45a049; /* Цвет при наведении */
+  transform: scale(1.05); /* Небольшая анимация */
+  transition: all 0.3s ease;
+}
+
+.download-btn.disabled {
+    background-color: #666;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+footer {
+    background-color: #0d0d0d;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 50px;
+}
+
+#modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw; /* 100% ширины viewport */
+  height: 100vh; /* 100% высоты viewport */
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Убираем скролл у оверлея */
+}
+
+.modal-content {
+  background-color: #252525;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+
+  /* Стили для скрытия scrollbar'а с сохранением прокрутки */
+  overflow-y: auto;
+  scrollbar-width: none; /* Для Firefox */
+  -ms-overflow-style: none; /* Для IE и Edge */
+}
+
+/* Скрываем scrollbar для WebKit браузеров (Chrome, Safari) */
+.modal-content::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.close-modal:hover {
+  color: #fff;
 }

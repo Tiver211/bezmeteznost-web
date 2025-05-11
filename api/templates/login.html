@@ -6,27 +6,23 @@
     <link rel="stylesheet" href="static/css/login.css">
     <script src="static/js/login.js" defer></script>
     <link rel="shortcut icon" href="/static/favicon.ico">
-    <script src="https://smartcaptcha.yandexcloud.net/captcha.js" defer></script>
+    <script src="https://smartcaptcha.yandexcloud.net/captcha.js?render=onload&onload=onloadFunction" defer ></script>
 </head>
 <body>
   <div class="login-container">
     <h2>Вход</h2>
     <form id="loginForm">
-      <label for="mail">Почта</label>
-      <input type="text" id="mail" name="mail" placeholder="Введите почту">
+        <label for="mail">Почта или логин</label>
+        <input type="text" id="mail" name="mail" placeholder="Введите почту или логин">
 
-      <label for="password">Пароль</label>
-      <input type="password" id="password" name="password" placeholder="Введите пароль">
+        <label for="password">Пароль</label>
+        <input type="password" id="password" name="password" placeholder="Введите пароль">
 
-      <div id="error-message" class="error-message"></div>
+        <div id="error-message" class="error-message"></div>
 
-        <div
-            id="captcha-container"
-            class="smart-captcha"
-            data-sitekey="ysc1_LVBjU7yIahGOgFwLJvUlpoQUYEhywwdtrsNwCfku57778ddd"
-        ></div>
+        <div id="captcha-container"></div>
 
-      <button type="submit">Войти</button>
+        <button type="submit">Войти</button>
     </form>
     <p>Нет аккаунта? <a href="/register">Зарегистрироваться</a></p>
   </div>
