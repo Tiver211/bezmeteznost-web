@@ -59,7 +59,7 @@ def check_user_unique(mail, login):
     return False
 
 def authenticate_user(mail, password):
-    user = User.query.filter_by(mail=mail, verify_mail=True).first()
+    user = User.query.filter(or_(User.mail == mail, User.login == mail)).first()
 
     if not user or not bcrypt.checkpw(password.encode(), user.password_hash.encode()):
         return 401, None

@@ -1,11 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Настройки</title>
-    <link rel="shortcut icon" href="/static/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройки IP - Название вашего сервера</title>
+    <link rel="stylesheet" href="/static/css/settings.css">
 </head>
 <body>
-    <h1>Настроек пока нет :)</h1>
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo-link">
+              <div class="logo">Безмятежность</div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="/">Главная</a></li>
+                    <li><a onclick="logout()" style="cursor: pointer">Выйти</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="settings-container">
+            <h1>Настройки авторизации по IP</h1>
+
+            <!-- Сообщение об успехе -->
+            <div class="status-message" id="success-message">
+                Настройки успешно сохранены!
+            </div>
+
+            <!-- Сообщение об ошибке -->
+            <div class="status-message" id="error-message">
+                Ошибка при сохранении настроек. Проверьте введенные данные.
+            </div>
+
+            <div class="button-group">
+                <p>Ваш IP: <span id="ipAddress" class="ip-address" onclick="copyIp()">{{ user_ip }}</span></p>
+                <button id="setIp" class="ipBtn" onclick="setIp()">Установить текущий IP</button>
+                <button id="clearIps" class="btn btn-warning" onclick="clearIps()">Очистить IP</button>
+            </div>
+    </div>
+
+    <input id="username-input" style type="hidden" name="username" value="{{ username }}">
+    <input id="user-ip-input" style type="hidden" name="user-ip" value="{{ user_ip }}">
+    <footer>
+        <p>&copy; 2025 bezmetejnost. Все права защищены.</p>
+    </footer>
+    <script src="/static/js/settings.js"></script>
 </body>
 </html>

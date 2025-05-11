@@ -1,53 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная</title>
-    <link rel="stylesheet" href="static/css/index.css">
-    <script src="static/js/index.js" defer></script>
-    <link rel="shortcut icon" href="/static/favicon.ico">
-    <script src="static/js/rules.js" defer></script>
-    <link rel="stylesheet" href="static/css/modal.css">
+    <title>Главная - Безмятежность</title>
+    <script src="/static/js/index.js"></script>
+    <link rel="stylesheet" href="/static/css/index.css">
 </head>
 <body>
-    <div id="modalOverlay" class="modal-overlay">
-      <div class="modal-content">
-        <span class="close-modal">&times;</span>
-      </div>
+    <div id="modalOverlay" style="display: none;">
+        <div class="modal-content"></div>
     </div>
-    <header>
-        <nav class="top-menu">
-            <h1 class="top-title">ip controller</h1>
-            <div class="account-container">
-                <div class="account-icon" onclick="toggleMenu()">
-                    <a class="account-name">{{ username }}</a><a class="account-icon">👤</a></div>
-                <div id="accountMenu" class="account-menu">
+    <div class="page-container">
+        <header>
+            <div class="header-container">
+                <a href="/" class="logo-link">
+                  <div class="logo">Безмятежность</div>
+                </a>
+                <nav>
                     <ul>
-                        <li><a href="/settings">Настройки</a></li>
-                        <li><a id="logout_button" onclick="logout()">Выход</a></li>
+                       {% if current_user.is_authenticated and current_user.verify_mail %}
+                            <li><a href="/settings" style="cursor: pointer">Настройки</a></li>
+                            <li><a onclick="logout()" style="cursor: pointer">Выйти</a></li>
+                        {% else %}
+                            <li><a href="/login" style="cursor: pointer">Войти</a></li>
+                        {% endif %}
                     </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <h1>Добро пожаловать на наш сервер!</h1>
+
+            <div class="server-info">
+                <h2>Информация о сервере</h2>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">IP адрес:</div>
+                        <div class="info-value">bezmetejnost.online</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Версия:</div>
+                        <div class="info-value">1.20.1 forge</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Статус:</div>
+                        <div class="info-value" id="server-status"><span class="loading">Загрузка...</span></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Игроков онлайн:</div>
+                        <div class="info-value" id="players-online"><span class="loading">Загрузка...</span></div>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
 
-    <div id="Главная"></div>
-    <div class="button-group">
-        <p>Ваш ip <span id="ipAddress" class="ip-address" onclick="copyIp()">{{ user_ip }}</span></p>
-        <button id="setIp" onclick="setIp()">Установить текущий ip</button>
+            <div class="social-links">
+                <a target="_blank" href="https://discord.gg/MxaxVQFHgN" class="social-link discord">Discord</a>
+                <a target="_blank" href="https://boosty.to/bezmetejnost" class="social-link boosty">Boosty</a>
+                <!-- <a href="https://youtube.com/вашассылка" class="social-link youtube">YouTube</a> -->
+                <a target="_blank" href="https://t.me/bezmetejnost_minecraft" class="social-link telegram">Telegram</a>
+            </div>
 
-        <button id="clearIps" onclick="clearIps()">Очистить ip</button>
+            <div class="download-buttons">
+                <a href="/static/mods.zip" class="download-btn">Скачать моды</a>
+                <a class="download-btn disabled">Скачать загрузчик (в разработке)</a>
+            </div>
+            <div class="download-buttons">
+                <button class="download-btn" style="cursor: pointer" onclick="goToDifferentPort()">Открыть карту поездов</button>
+                <button id="openModalBtn" style="cursor: pointer" class="download-btn">Просмотреть правила</button>
+            </div>
+        </main>
+
+
+        <footer>
+            <p>&copy; 2025 bezmetejnost. Все права защищены.</p>
+        </footer>
+        <script src="/static/js/rules.js"></script>
     </div>
-    <div class="button-group">
-        <a href="static/mods.zip" download>
-            <button>Скачать моды</button>
-        </a>
-        <button onclick="goToDifferentPort()">Открыть карту поездов</button>
-        <button id="openModalBtn">Просмотреть правила</button>
-    </div>
-    <input id="username-input" style type="hidden" name="username" value="{{ username }}">
-    <input id="user-ip-input" style type="hidden" name="user-ip" value="{{ user_ip }}">
 </body>
 </html>
-
