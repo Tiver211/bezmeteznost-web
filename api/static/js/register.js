@@ -43,7 +43,7 @@ async function sendRegister() {
     const errorElement = document.getElementById('error-message');
     const loginContainer = document.querySelector('.login-container');
     const token_obj = document.getElementsByName("smart-token");
-    if (token_obj.lenght == 0) {
+    if (token_obj.length === 0) {
         return;
     }
     const token = token_obj[0].value;
