@@ -34,14 +34,14 @@ def login():
     if not validate_captcha(token, request.headers.get("X-Real-IP")):
         return jsonify({"msg": "bad captcha"}), 403
 
-    code, user = authenticate_user(mail, password)
-    if code != 200 and code != 423:
+    code, user, verified = authenticate_user(mail, password)
+    if code != 200:
         flash('incorrect login or password')
         return jsonify({"msg": "incorrect login or password"}), code
 
     login_user(user)
 
-    return jsonify({"msg": "ok" if code == 200 else "pls verify your mail"})
+    return jsonify({"msg": "ok" if verified else "pls verify your mail", "email_status": True if verified else False})
 
 @blueprint.route("/verify_mail", methods=["GET"])
 def verify_mail():

@@ -62,12 +62,9 @@ def authenticate_user(mail, password):
     user = User.query.filter(or_(User.mail == mail, User.login == mail)).first()
 
     if not user or not bcrypt.checkpw(password.encode(), user.password_hash.encode()):
-        return 401, None
+        return 401, None, None
 
-    if not user.verify_mail:
-        return 423, user
-
-    return 200, user
+    return 200, user, user.verify_mail
 
 def generate_mail_verification_request(user):
     mail = user.mail

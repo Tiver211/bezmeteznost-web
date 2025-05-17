@@ -37,7 +37,10 @@ async function sendLogin() {
           }
 
       }
-
+      if (!response.json().mail_status) {
+          window.location.href = '/verify_page';
+          return;
+      }
       window.location.href = '/';
 
     } catch (error) {
