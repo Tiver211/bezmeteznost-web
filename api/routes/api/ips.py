@@ -38,5 +38,5 @@ def server_status():
         status = server.status()
         return jsonify({"players": status.players.online, "status": True}), 200
 
-    except TimeoutError:
+    except (TimeoutError, ConnectionRefusedError):
         return jsonify({"players": 0, "status": False}), 200
