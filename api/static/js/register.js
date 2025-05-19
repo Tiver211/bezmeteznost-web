@@ -108,7 +108,7 @@ function onloadFunction() {
   }
 
   window.smartCaptcha.render('captcha-container', {
-    sitekey: 'ysc1_LVBjU7yIahGOgFwLJvUlpoQUYEhywwdtrsNwCfku57778ddd',
+    sitekey: 'ysc1_NCBk1wcu1M4sSA1wSODTq5xKxBjzAVuaaLVQi4H4d82297a4,
     invisible: true, // Сделать капчу невидимой
     callback: sendRegister,
   });
