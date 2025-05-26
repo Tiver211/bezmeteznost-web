@@ -23,7 +23,7 @@ def check_minecraft_server():
         old_online = bool(int(old_online))
 
     if old_players is None:
-        old_players = False
+        old_players = 0
     else:
         old_players = int(old_players)
     if old_players != players or old_online != online:
