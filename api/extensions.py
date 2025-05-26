@@ -22,6 +22,7 @@ redis_client = redis.Redis(
     decode_responses=True)
 
 migrate = Migrate(db=db)
+
 socketio = SocketIO(message_queue=f"redis://{os.getenv('REDIS_CONN')}/0",
                     cors_allowed_origins="*",
                     async_mode="gevent",
