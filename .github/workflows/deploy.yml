@@ -70,6 +70,7 @@ jobs:
             echo "CAPTCHA_TOKEN=${{ secrets.CAPTCHA_TOKEN }}" >> .env
             echo "POSTGRES_VOLUME=${{ env.POSTGRES_VOLUME }}" >> .env
             echo "SMTP_PASS=${{ secrets.SMTP_PASS }}" >> .env
+            echo "SITE_KEY=${{ secrets.SITE_KEY }}" >> .env
           
             
             # Останавливаем контейнеры без удаления (чтобы сохранить тома)

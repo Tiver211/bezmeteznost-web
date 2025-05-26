@@ -52,9 +52,6 @@ async function sendRegister() {
     errorElement.textContent = '';
     loginContainer.classList.remove('shake');
 
-    console.log(username);
-    console.log(password);
-
     try {
       const response = await fetch('/api/auth/register', {
         method: 'POST',
@@ -70,8 +67,13 @@ async function sendRegister() {
           window.smartCaptcha.reset();
           errorElement.style.display = 'grid';
           switch (response.status.toString()) {
+              case "400":
+                  errorElement.textContent = 'Некорректные данные';
+                  return;
+
               case "401":
                   throw new Error('Login failed');
+
               case "403":
                   errorElement.textContent = 'Пройдите капчу';
 
@@ -106,9 +108,9 @@ function onloadFunction() {
   if (!window.smartCaptcha) {
     return;
   }
-
+  const sitekey = document.getElementById("sitekey").value;
   window.smartCaptcha.render('captcha-container', {
-    sitekey: 'ysc1_NCBk1wcu1M4sSA1wSODTq5xKxBjzAVuaaLVQi4H4d82297a4',
+    sitekey: sitekey,
     invisible: true, // Сделать капчу невидимой
     callback: sendRegister,
   });

@@ -11,3 +11,8 @@ marshmallow
 itsdangerous
 xxhash
 mcstatus
+flask_migrate
+flask-socketio
+gevent
+gevent-websocket
+flask-apscheduler
