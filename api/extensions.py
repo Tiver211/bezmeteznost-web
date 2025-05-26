@@ -6,7 +6,6 @@ import flask_login
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_socketio import SocketIO
-from celery import Celery
 import flask_mail
 import redis
 from flask_apscheduler import APScheduler
