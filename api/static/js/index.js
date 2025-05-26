@@ -1,33 +1,32 @@
-// Функция для получения статуса сервера
-function fetchServerStatus() {
-    const statusElement = document.getElementById('server-status');
-    const playersElement = document.getElementById('players-online');
+const socket = io();
 
-    // Запрашиваем данные с API
-    fetch('/api/ips/server_status')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Ошибка сети');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Обновляем статус сервера
-            if (data.status) {
-                statusElement.innerHTML = '<span class="status-on">Включен</span>';
-            } else {
-                statusElement.innerHTML = '<span class="status-off">Выключен</span>';
-            }
+// Элементы DOM
+const statusElement = document.getElementById('server-status');
+const playersElement = document.getElementById('players-online');
 
-            // Обновляем количество игроков
-            playersElement.textContent = `${data.players}`;
-        })
-        .catch(error => {
-            console.error('Ошибка при получении статуса сервера:', error);
-            statusElement.innerHTML = '<span class="status-off">Ошибка загрузки</span>';
-            playersElement.textContent = '?';
-        });
-}
+// Обработчик обновления статуса
+socket.on('status_update', (data) => {
+    console.log('Status update:', data);
+    
+    // Обновляем статус сервера
+    if (data.online) {
+        statusElement.innerHTML = '<span class="status-on">Включен</span>';
+    } else {
+        statusElement.innerHTML = '<span class="status-off">Выключен</span>';
+    }
+    
+    // Обновляем количество игроков
+    playersElement.textContent = data.players;
+    
+    // Обновляем время последней проверки (если нужно)
+    if (data.last_check) {
+        console.log('Last check:', new Date(data.last_check).toLocaleString());
+    }
+});
+
+// Обработчики подключения/отключения
+socket.on('connect', () => console.log('Connected to WS server'));
+socket.on('disconnect', () => console.log('Disconnected from WS server'));
 
 function goToDifferentPort() {
     window.location.href = "http://bezmetejnost.online:3876";
@@ -39,9 +38,3 @@ async function logout() {
      });
      location.reload();
 }
-
-// Загружаем статус при открытии страницы
-document.addEventListener('DOMContentLoaded', fetchServerStatus);
-
-// Обновляем статус каждые 30 секунд
-setInterval(fetchServerStatus, 30000);

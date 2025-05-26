@@ -3,6 +3,7 @@ from flask_login import current_user, login_required
 from mcstatus import JavaServer
 from api.services.auth import verify_required
 from api.services.ips import set_user_ip, clear_ips, verify_user_ip
+from api.extensions import redis_client
 
 blueprint = Blueprint("ips", __name__, url_prefix="/ips")
 
@@ -33,10 +34,16 @@ def verify_ip():
 
 @blueprint.route("/server_status", methods=["GET"])
 def server_status():
-    server = JavaServer("bezmetejnost.online", timeout=1)
-    try:
-        status = server.status()
-        return jsonify({"players": status.players.online, "status": True}), 200
+    players = redis_client.get("players")
+    online = redis_client.get("online")
+    if online is None:
+        online = False
+    else:
+        online = bool(int(online))
 
-    except (TimeoutError, ConnectionRefusedError):
-        return jsonify({"players": 0, "status": False}), 200
+    if players is None:
+        players = False
+    else:
+        players = int(players)
+    return jsonify({"players": players, "status": online}), 200
+

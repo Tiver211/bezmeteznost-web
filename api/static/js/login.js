@@ -56,9 +56,9 @@ function onloadFunction() {
   if (!window.smartCaptcha) {
     return;
   }
-
+  const sitekey = document.getElementById("sitekey").value;
   window.smartCaptcha.render('captcha-container', {
-    sitekey: 'ysc1_NCBk1wcu1M4sSA1wSODTq5xKxBjzAVuaaLVQi4H4d82297a4',
+    sitekey: sitekey,
     invisible: true, // Сделать капчу невидимой
     callback: sendLogin,
   });

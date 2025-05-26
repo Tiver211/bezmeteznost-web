@@ -8,4 +8,4 @@ COPY . /api
 
 EXPOSE 80
 
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "api.app:app"]
+CMD ["bash", "api/start_workers.sh"]
