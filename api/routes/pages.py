@@ -1,3 +1,4 @@
+import os
 from functools import wraps
 from api.services.auth import verify_required
 from flask import Blueprint, render_template, request, redirect, url_for, send_file, send_from_directory, current_app
@@ -8,7 +9,7 @@ blueprint = Blueprint("pages", __name__)
 
 @blueprint.route("/login", methods=["GET"], endpoint='login_page')
 def login():
-    return render_template("login.html")
+    return render_template("login.html", sitekey=os.getenv("SITEKEY"))
 
 @blueprint.route("/", methods=["GET"])
 def index():
@@ -16,7 +17,7 @@ def index():
 
 @blueprint.route("/register", methods=["GET"], endpoint='register_page')
 def register():
-    return render_template("register.html")
+    return render_template("register.html", sitekey=os.getenv("SITEKEY"))
 
 @blueprint.route("/settings", methods=["GET"])
 @login_required

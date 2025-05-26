@@ -42,7 +42,7 @@ def server_status():
         online = bool(int(online))
 
     if players is None:
-        players = False
+        players = 0
     else:
         players = int(players)
     return jsonify({"players": players, "status": online}), 200
