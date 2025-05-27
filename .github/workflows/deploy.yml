@@ -81,6 +81,6 @@ jobs:
         run: |
           ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} <<EOF
             cd ${{ env.PROJECT_DIR }}
-            sudo docker compose exec app flask db upgrade
+            sudo docker compose exec app flask --app api.app db upgrade
           EOF
         timeout-minutes: 5
