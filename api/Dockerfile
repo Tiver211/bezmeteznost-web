@@ -6,6 +6,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /api
 
-EXPOSE 80
-
-CMD ["bash", "api/start_workers.sh"]
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "api.app:app"]

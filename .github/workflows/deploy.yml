@@ -58,6 +58,7 @@ jobs:
           ls 
           scp docker-compose.yaml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_DIR }}/docker-compose.yml
           scp -r nginx ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_DIR }}
+          scp -r migrations ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:${{ env.PROJECT_DIR }}
         
           ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} <<EOF
             cd ${{ env.PROJECT_DIR }}
@@ -72,9 +73,14 @@ jobs:
             echo "SMTP_PASS=${{ secrets.SMTP_PASS }}" >> .env
             echo "SITE_KEY=${{ secrets.SITE_KEY }}" >> .env
           
-            
-            # Останавливаем контейнеры без удаления (чтобы сохранить тома)
             sudo docker compose stop || true
-            # Запускаем контейнеры с сохранением данных
+
             sudo docker compose up -d
           EOF
+      - name: Run Database Migrations
+        run: |
+          ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} <<EOF
+            cd ${{ env.PROJECT_DIR }}
+            sudo docker compose exec app flask db upgrade
+          EOF
+        timeout-minutes: 5

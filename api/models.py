@@ -17,6 +17,7 @@ class User(UserMixin, db.Model):
     password_hash = Column(String, nullable=False)
     verify_mail = Column(Boolean, nullable=False, default=False)
     verify_admin = Column(Boolean, nullable=False, default=False)
+    is_admin = Column(Boolean, nullable=False, default=False)
 
     user_ips = relationship("UserIp", back_populates="user")
     user_alts = relationship("Alt", back_populates="user")

@@ -11,10 +11,44 @@ services:
 
     volumes:
       -  /home/tiver211/mods/mods.zip:/api/static/mods.zip
+      - ./migrations:/api/migrations
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5000/api/ping" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
 
     depends_on:
-      - postgres
-      - redis
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  app-websockets:
+    image: ${IMAGE_NAME}
+    environment:
+      POSTGRES_CONN: ${POSTGRES_CONN}
+      RANDOM_SECRET: ${RANDOM_SECRET}
+      REDIS_CONN: "redis:6379"
+      CAPTCHA_TOKEN: ${CAPTCHA_TOKEN}
+      SMTP_PASS: ${SMTP_PASS}
+      SITEKEY: ${SITE_KEY}
+
+    volumes:
+      - /home/tiver211/mods/mods.zip:/api/static/mods.zip
+      - ./migrations:/app/migrations
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5001/api/ping" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker -w 1 -b :5001 api.app:app
+    restart: unless-stopped
 
   postgres:
     image: postgres:15
@@ -24,6 +58,11 @@ services:
       POSTGRES_DB: ${POSTGRES_DATABASE}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USERNAME} -d ${POSTGRES_DATABASE}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   nginx:
     image: nginx:latest
