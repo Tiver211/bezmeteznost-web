@@ -11,7 +11,7 @@ services:
 
     volumes:
       -  /home/tiver211/mods/mods.zip:/api/static/mods.zip
-      - ./migrations:/api/migrations
+      - ./migrations:/migrations
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:5000/api/ping" ]
       interval: 30s
